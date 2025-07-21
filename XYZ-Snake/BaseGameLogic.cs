@@ -2,11 +2,11 @@
 
 public abstract class BaseGameLogic : ConsoleInput.IArrowListener
 {
-    protected BaseGameState? _currentState;
+    protected BaseGameState? currentState { get; private set; }
     
-    protected float _time;
-    protected int _screenWidth;
-    protected int _screenHeight;
+    protected float time { get; private set; }
+    protected int screenWidth { get; private set; }
+    protected int screenHeight { get; private set; }
     
     public void InitializeInput(ConsoleInput consoleInput)
     {
@@ -15,18 +15,18 @@ public abstract class BaseGameLogic : ConsoleInput.IArrowListener
 
     public void ChangeState(BaseGameState gameState)
     {
-        _currentState?.Reset();
-        _currentState = gameState;
+        currentState?.Reset();
+        currentState = gameState;
     }
 
     public void DrawNewState(float deltaTime, ConsoleRenderer renderer)
     {
-        _time += deltaTime;
-        _screenWidth = renderer.width;
-        _screenHeight = renderer.height;
+        time += deltaTime;
+        screenWidth = renderer.width;
+        screenHeight = renderer.height;
         
-        _currentState?.Update(deltaTime);
-        _currentState?.Draw(renderer);
+        currentState?.Update(deltaTime);
+        currentState?.Draw(renderer);
         
         Update(deltaTime);
     }
